@@ -1,6 +1,6 @@
 import {JSX} from 'react';
 
-export function AddReview(): JSX.Element{
+export function AddReviewPage(): JSX.Element{
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
