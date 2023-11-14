@@ -1,18 +1,18 @@
 import {JSX} from 'react';
-import {SmallFilmCard} from './small-film-card';
+import {FilmCards} from './film-cards';
+import {Film} from '../../types/film';
 
 export type FilmCardProps = {
-  title: string;
-  genre: string;
-  year: number;
+  promoFilm: Film;
+  films: Film[];
 };
 
-export function MainPage(props: FilmCardProps): JSX.Element{
+export function MainPage({promoFilm, films}: FilmCardProps): JSX.Element{
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={promoFilm.backgroundSrc} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -29,7 +29,7 @@ export function MainPage(props: FilmCardProps): JSX.Element{
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
               </div>
             </li>
             <li className="user-block__item">
@@ -41,16 +41,16 @@ export function MainPage(props: FilmCardProps): JSX.Element{
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              <img src={promoFilm.posterSrc} alt={promoFilm.title} width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{promoFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -111,26 +111,7 @@ export function MainPage(props: FilmCardProps): JSX.Element{
           </ul>
 
           <div className="catalog__films-list">
-            <SmallFilmCard imgSrc="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" filmName="Fantastic Beasts: The Crimes of Grindelwald"/>
-            <SmallFilmCard imgSrc="img/bohemian-rhapsody.jpg" filmName="Bohemian Rhapsody"/>
-            <SmallFilmCard imgSrc="img/macbeth.jpg" filmName="Macbeth"/>
-            <SmallFilmCard imgSrc="img/aviator.jpg" filmName="Aviator"/>
-            <SmallFilmCard imgSrc="img/we-need-to-talk-about-kevin.jpg" filmName="We need to talk about Kevin"/>
-            <SmallFilmCard imgSrc="img/what-we-do-in-the-shadows.jpg" filmName="What We Do in the Shadows"/>
-            <SmallFilmCard imgSrc="img/revenant.jpg" filmName="Revenant"/>
-            <SmallFilmCard imgSrc="img/johnny-english.jpg" filmName="Johnny English"/>
-            <SmallFilmCard imgSrc="img/shutter-island.jpg" filmName="Shutter Island"/>
-            <SmallFilmCard imgSrc="img/pulp-fiction.jpg" filmName="Pulp Fiction"/>
-            <SmallFilmCard imgSrc="img/no-country-for-old-men.jpg" filmName="No Country for Old Men"/>
-            <SmallFilmCard imgSrc="img/snatch.jpg" filmName="Snatch"/>
-            <SmallFilmCard imgSrc="img/moonrise-kingdom.jpg" filmName="Moonrise Kingdom"/>
-            <SmallFilmCard imgSrc="img/seven-years-in-tibet.jpg" filmName="Seven Years in Tibet"/>
-            <SmallFilmCard imgSrc="img/midnight-special.jpg" filmName="Midnight Special"/>
-            <SmallFilmCard imgSrc="img/war-of-the-worlds.jpg" filmName="War of the Worlds"/>
-            <SmallFilmCard imgSrc="img/dardjeeling-limited.jpg" filmName="Dardjeeling Limited"/>
-            <SmallFilmCard imgSrc="img/orlando.jpg" filmName="Orlando"/>
-            <SmallFilmCard imgSrc="img/mindhunter.jpg" filmName="Mindhunter"/>
-            <SmallFilmCard imgSrc="img/midnight-special.jpg" filmName="Midnight Special"/>
+            <FilmCards focusFilmId={promoFilm.id} films={films}/>
           </div>
 
           <div className="catalog__more">
