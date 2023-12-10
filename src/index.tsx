@@ -13,4 +13,3 @@ root.render(
     <App films={films} promoFilm={promoFilm} />
   </React.StrictMode>
 );
-
