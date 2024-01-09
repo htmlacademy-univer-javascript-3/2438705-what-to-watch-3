@@ -1,16 +1,16 @@
 import {Navigate} from 'react-router-dom';
-import {AuthStatus} from '../../const';
-import {JSX} from 'react';
+import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {useAppSelector} from '../../hooks';
 
 type PrivateRouteProps = {
-  authStatus: AuthStatus;
   children: JSX.Element;
 }
-
-export function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authStatus, children} = props;
-
+function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
   return (
-    authStatus === AuthStatus.Auth ? children : <Navigate to='/login' />
+    authorizationStatus === AuthorizationStatus.Authorized
+      ? props.children
+      : <Navigate to={AppRoute.SignIn} />
   );
 }
+export default PrivateRoute;

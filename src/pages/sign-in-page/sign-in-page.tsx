@@ -1,34 +1,58 @@
-import {JSX} from 'react';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {ChangeEvent, FormEvent, useState} from 'react';
+import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
+import {Navigate, useNavigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {AuthorizationData} from '../../types/AuthorizationData';
+import {loginAction} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
-export function SignInPage(): JSX.Element {
+function SignInPage(): JSX.Element {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const onSubmit = (authData: AuthorizationData) => {
+    dispatch(loginAction(authData));
+    navigate(AppRoute.Main);
+  };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (email !== '' && password !== '' &&
+      (/(?=.*[a-zA-Z])(?=.*[0-9])[0-9a-zA-Z]{2,}/.test(password)) &&
+      (/\S+@\S+\.\S+/.test(email))) {
+      onSubmit({ email, password });
+    }
+  };
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  if (authorizationStatus === AuthorizationStatus.Authorized) {
+    return <Navigate to={'/'} />;
+  }
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
+        <Logo />
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
-
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="sign-in-page#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                id="user-email"
+              <input
+                className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" value={email} onChange={handleEmailChange}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                id="user-password"
+              <input
+                className="sign-in__input" type="password" placeholder="Password" name="user-password"
+                id="user-password" value={password} onChange={handlePasswordChange}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
@@ -38,20 +62,9 @@ export function SignInPage(): JSX.Element {
           </div>
         </form>
       </div>
-
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
+
+export default SignInPage;

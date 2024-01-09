@@ -1,11 +1,12 @@
-import {JSX} from 'react';
+import {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 
-export function NotFoundPage(): JSX.Element{
+function NotFoundPage(): JSX.Element {
   return (
-    <section className="not-found-page">
+    <Fragment>
       <h1>404 Not Found</h1>
-      <Link to="/" title='Вернуться на главную'/>
-    </section>
+      <Link to='/' data-testid='link to main page'>На главную страницу</Link>
+    </Fragment>
   );
 }
+export default NotFoundPage;

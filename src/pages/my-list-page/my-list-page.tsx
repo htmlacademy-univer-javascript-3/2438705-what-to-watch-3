@@ -1,52 +1,38 @@
-import {JSX} from 'react';
-import {FilmCardProps} from '../main-page/main-page';
-import {FilmCards} from '../main-page/film-cards';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import Footer from '../../components/footer/footer';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus, ReducerType} from '../../consts';
+import {useEffect} from 'react';
+import {fetchFavoriteFilms} from '../../store/api-actions';
+import FilmCard from '../../components/film-card/film-card';
+import {Header} from '../../components/header/header';
+import {MyListHeader} from '../../components/header/my-list-header/my-list-header';
 
-export function MyListPage({films, promoFilm}: FilmCardProps) : JSX.Element{
+function MyListPage() {
+  const films = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);
+  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [authorizationStatus, dispatch]);
+
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
-          </li>
-        </ul>
-      </header>
+      <Header isUserPage>
+        <MyListHeader count={favoriteFilmsLength}/>
+      </Header>
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmCards focusFilmId={promoFilm.id} films={films}/>
+        <div className="catalog__films-list">
+          {films.map((film) => <FilmCard key={film.id} film={film}/>)}
+        </div>
       </section>
-
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to={AppRoute.Root} className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
+
+export default MyListPage;
