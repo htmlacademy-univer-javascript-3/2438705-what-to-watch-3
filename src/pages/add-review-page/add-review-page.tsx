@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import {getFilm} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function AddReviewPage(): JSX.Element {
   const id = Number(useParams().id);
@@ -19,6 +20,9 @@ function AddReviewPage(): JSX.Element {
   );
   if (authStatus === AuthorizationStatus.NonAuthorized) {
     return <Navigate to={'/'} />;
+  }
+  if (!film) {
+    return <NotFoundPage/>;
   }
   return (
     <section className="film-card film-card--full">

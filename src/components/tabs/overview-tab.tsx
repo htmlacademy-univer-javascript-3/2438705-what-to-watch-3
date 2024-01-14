@@ -5,6 +5,22 @@ type OverviewTabProps = {
   film: FilmType;
 }
 
+function getRatingLevel(rating: number): string {
+  if (rating < 3) {
+    return 'Bad';
+  }
+  if (rating < 5) {
+    return 'Normal';
+  }
+  if (rating < 8) {
+    return 'Good';
+  }
+  if (rating < 10) {
+    return 'Very good';
+  }
+  return 'Awesome';
+}
+
 function OverviewTab(props: OverviewTabProps): JSX.Element {
   const {film} = props;
   return (
@@ -32,19 +48,3 @@ function OverviewTab(props: OverviewTabProps): JSX.Element {
 }
 
 export default OverviewTab;
-
-function getRatingLevel(rating: number): string {
-  if (rating < 3) {
-    return 'Bad';
-  }
-  if (rating < 5) {
-    return 'Normal';
-  }
-  if (rating < 8) {
-    return 'Good';
-  }
-  if (rating < 10) {
-    return 'Very good';
-  }
-  return 'Awesome';
-}

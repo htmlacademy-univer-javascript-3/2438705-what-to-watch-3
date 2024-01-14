@@ -48,7 +48,7 @@ describe('Player page', () => {
     expect(screen.getByText(/Exit/i)).toBeInTheDocument();
   });
 
-  it('should play and stop when button clicked', async () => {
+  it('should play and stop when button clicked', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>

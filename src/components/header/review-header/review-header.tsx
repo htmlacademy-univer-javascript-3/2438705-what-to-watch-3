@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom';
-import {Film} from 'types/film.ts';
+import {FilmType} from '../../../types/FilmType.ts';
 
 type ReviewHeaderProps = {
-  film: Film;
+  film: FilmType;
 }
 export function ReviewHeader({film}: ReviewHeaderProps) {
   return (

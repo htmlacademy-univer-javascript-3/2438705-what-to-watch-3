@@ -6,7 +6,7 @@ import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';
 
 type TabsProps = {
-  film: FilmType,
+  film: FilmType;
 };
 
 function Tabs(props: TabsProps): JSX.Element {
@@ -15,7 +15,7 @@ function Tabs(props: TabsProps): JSX.Element {
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className={`film-nav__item ${currentTab === Tab.OVERVIEW && 'film-nav__item--active'}`}>
+          <li className={`film-nav__item ${currentTab === Tab.OVERVIEW ? 'film-nav__item--active' : 'another-class'}`}>
             <a href="src/components/tabs#overviews" className="film-nav__link" data-testid='overview-tab' onClick={
               (evt) => {
                 evt.preventDefault();
@@ -26,7 +26,7 @@ function Tabs(props: TabsProps): JSX.Element {
               {Tab.OVERVIEW}
             </a>
           </li>
-          <li className={`film-nav__item ${currentTab === Tab.DETAILS && 'film-nav__item--active'}`}>
+          <li className={`film-nav__item ${currentTab === Tab.DETAILS ? 'film-nav__item--active' : 'another-class'}`}>
             <a href="src/components/tabs#details" className="film-nav__link" data-testid='details-tab' onClick={
               (evt) => {
                 evt.preventDefault();
@@ -37,7 +37,7 @@ function Tabs(props: TabsProps): JSX.Element {
               {Tab.DETAILS}
             </a>
           </li>
-          <li className={`film-nav__item ${currentTab === Tab.REVIEWS && 'film-nav__item--active'}`}>
+          <li className={`film-nav__item ${currentTab === Tab.REVIEWS ? 'film-nav__item--active' : 'another-class'}`}>
             <a href="src/components/tabs#reviews" className="film-nav__link" data-testid='reviews-tab' onClick={
               (evt) => {
                 evt.preventDefault();
