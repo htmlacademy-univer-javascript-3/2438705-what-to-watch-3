@@ -10,7 +10,6 @@ export type AppDispatch = typeof store.dispatch;
 export type AppState = {
   films: FilmType[];
   dataIsLoading: boolean;
-  // error: string | null,
   promo: FilmType | null;
   currentGenre: string;
   filteredFilms: FilmType[];

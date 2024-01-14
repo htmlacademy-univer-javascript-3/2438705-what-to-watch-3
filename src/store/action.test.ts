@@ -31,7 +31,7 @@ describe('async actions', () => {
       .reply(200, []);
     expect(store.getActions()).toEqual([]);
     await store.dispatch(checkAuthAction());
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       checkAuthAction.pending.type,
       checkAuthAction.fulfilled.type
@@ -45,7 +45,7 @@ describe('async actions', () => {
       .reply(200, { token: 'secret' });
     const store = mockStore();
     await store.dispatch(loginAction(fakeUser));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       loginAction.pending.type,
       loginAction.fulfilled.type
@@ -58,7 +58,7 @@ describe('async actions', () => {
       .reply(204);
     const store = mockStore();
     await store.dispatch(logoutAction());
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       logoutAction.pending.type,
       logoutAction.fulfilled.type
@@ -71,7 +71,7 @@ describe('async actions', () => {
       .reply(200, mockFilms);
     const store = mockStore();
     await store.dispatch(fetchFilmsAction());
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       fetchFilmsAction.pending.type,
       fetchFilmsAction.fulfilled.type
@@ -84,7 +84,7 @@ describe('async actions', () => {
       .reply(200, mockFilm);
     const store = mockStore();
     await store.dispatch(getPromoFilm());
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       getPromoFilm.pending.type,
       getPromoFilm.fulfilled.type
@@ -97,7 +97,7 @@ describe('async actions', () => {
       .reply(200, mockFilm);
     const store = mockStore();
     await store.dispatch(getFilm('1'));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       getFilm.pending.type,
       getFilm.fulfilled.type
@@ -110,7 +110,7 @@ describe('async actions', () => {
       .reply(200, mockFilms);
     const store = mockStore();
     await store.dispatch(getSimilarFilms('1'));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       getSimilarFilms.pending.type,
       getSimilarFilms.fulfilled.type
@@ -123,7 +123,7 @@ describe('async actions', () => {
       .reply(200, mockReviews);
     const store = mockStore();
     await store.dispatch(getFilmReviews('1'));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       getFilmReviews.pending.type,
       getFilmReviews.fulfilled.type
@@ -144,7 +144,7 @@ describe('async actions', () => {
       .reply(200);
     const store = mockStore();
     await store.dispatch(postFilmReview(postData));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       postFilmReview.pending.type,
       postFilmReview.fulfilled.type
@@ -157,7 +157,7 @@ describe('async actions', () => {
       .reply(200, mockFilms);
     const store = mockStore();
     await store.dispatch(fetchFavoriteFilms());
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       fetchFavoriteFilms.pending.type,
       fetchFavoriteFilms.fulfilled.type
@@ -174,7 +174,7 @@ describe('async actions', () => {
       .reply(200);
     const store = mockStore();
     await store.dispatch(changeFilmFavoriteStatus(postData));
-    const actions = store.getActions().map(({ type }) => type);
+    const actions = store.getActions().map(({ type }) => type as string);
     expect(actions).toEqual([
       changeFilmFavoriteStatus.pending.type,
       changeFilmFavoriteStatus.fulfilled.type

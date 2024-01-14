@@ -11,7 +11,7 @@ import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
-import {AppRoute, ReducerType} from '../../consts';
+import {ReducerType} from '../../consts';
 import {changePromoFavoriteStatus, fetchFavoriteFilms} from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
 import {AuthorizationStatus} from '../../consts';
@@ -80,7 +80,7 @@ function MainPage(): JSX.Element {
                   <span>Play</span>
                 </Link>
                 {authorizationStatus === AuthorizationStatus.Authorized && (
-                  <Link to={AppRoute.MyList} className="btn btn--list film-card__button" onClick={favoriteAddHandler}>
+                  <button className="btn btn--list film-card__button" onClick={favoriteAddHandler}>
                     {promoFilm?.isFavorite ? (
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#in-list"></use>
@@ -92,7 +92,7 @@ function MainPage(): JSX.Element {
                     )}
                     <span>My list</span>
                     <span className="film-card__count">{favoriteFilmsLength}</span>
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>

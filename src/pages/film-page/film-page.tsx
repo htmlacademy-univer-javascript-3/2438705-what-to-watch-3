@@ -70,7 +70,7 @@ function FilmPage(): JSX.Element {
                   <span>Play</span>
                 </Link>
                 {authorizationStatus === AuthorizationStatus.Authorized && (
-                  <Link to={AppRoute.MyList} type='button' className='btn btn--list film-card__button' onClick={favoriteAddHandler}>
+                  <button type='button' className='btn btn--list film-card__button' onClick={favoriteAddHandler}>
                     {currentFilm?.isFavorite ? (
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#in-list"></use>
@@ -82,7 +82,7 @@ function FilmPage(): JSX.Element {
                     )}
                     <span>My list</span>
                     <span className="film-card__count">{favoriteFilmsLength}</span>
-                  </Link>
+                  </button>
                 )}
                 {authorizationStatus === AuthorizationStatus.Authorized ?
                   <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">

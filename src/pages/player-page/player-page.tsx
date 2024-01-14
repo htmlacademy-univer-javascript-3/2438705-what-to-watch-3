@@ -2,6 +2,7 @@ import {Link, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Fragment, useEffect, useRef, useState} from 'react';
 import {getFilm} from '../../store/api-actions';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function PlayerPage(): JSX.Element {
   const id = Number(useParams().id);
@@ -53,6 +54,9 @@ function PlayerPage(): JSX.Element {
     const timeInActualFormat = `${minutes}:${seconds}`;
     return Number(hours) > 0 ? `${hours}:${timeInActualFormat}` : timeInActualFormat;
   };
+  if (!film) {
+    return <NotFoundPage/>;
+  }
   return (
     <div className="player">
       <video src={film?.videoLink} className="player__video" poster={film?.posterImage} ref={playerRef}></video>
